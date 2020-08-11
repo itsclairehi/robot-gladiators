@@ -5,6 +5,21 @@
 //    * Defeat each enemy robot
 // "LOSE" - Player robot's health is zero or less
 
+// Wrap the game logic in a startGame() function
+//      When the player is defeated or there are no more enemies, call an endGame() function that:
+//      Alerts the player's total stats
+//      Asks the player if they want to play again
+//      If yes, call startGame() to restart the game
+// After the player skips or defeats an enemy (and there are still more robots to fight):
+//      Ask the player if they want to "shop"
+//      If no, continue as normal
+//      If yes, call the shop() function
+//      In the shop() function, ask player if they want to "refill" health, "upgrade" attack, or "leave" the shop
+//      If refill, subtract money points from player and increase health
+//      If upgrade, subtract money points from player and increase attack power
+//      If leave, alert goodbye and exit the function
+//      If any other invalid option, call shop() again
+
 var playerName = window.prompt("What is your robot's name?");
 var playerHealth = 100;
 var playerAttack = 10;
@@ -15,10 +30,16 @@ console.log(playerName, playerAttack, playerHealth, playerMoney);
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 console.log(enemyNames.length);
 
+// for(var i = 0; i < enemyNames.length; i++) {
+//     console.log(enemyNames[i]);
+//   }
 
-console.log(enemyNames[i]);
-console.log(i);
-console.log(enemyNames[i] + " is at " + i + " index");
+
+
+// var i = 0
+// console.log(enemyNames[i]);
+// console.log(i);
+// console.log(enemyNames[i] + " is at " + i + " index");
 
 var enemyHealth = 50;
 var enemyAttack = 12;
@@ -81,18 +102,50 @@ var fight = function (enemyName) {
 
 
 //when fight function is called, it passes thru each enemyName (it's able to pass numerically bc of first parentheses)
+var startGame = function () {
+    debugger;
+    playerHealth = 100;
+    playerAttack = 10;
+    playerMoney = 10;
 for (var i = 0; i < enemyNames.length; i++) {
-    var pickedEnemyName = enemyNames[i];
-    enemyHealth = 50;
-    fight(pickedEnemyName);
-}
-    // for (var i = 0; i < enemyNames.length; i++) {
-    //     debugger;
-    //     // call fight function with enemy robot
-    //     fight(enemyNames[i]);
-    //   }
-    fight(enemyNames[i]);
+    if (playerHealth > 0) {
+        window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
+        
+        var pickedEnemyName = enemyNames[i];
+        
+        enemyHealth = 50;
+        
+        fight(pickedEnemyName);
+        
+    }
+    else {
+        window.alert("You have lost your robot in battle! Game Over!");
+        break;
+      }
+    }
+    endGame();
+};
 
+var endGame = function() {
+    window.alert("the game has now ended. Let's see how you did!")
+    if (playerHealth > 0) {
+        window.alert("Great Job, you've survived the game! You now have a score of " + playerMoney + ".")
+    }
+    else {
+        window.alert("You've lost your robot in battle.")
+    }
+
+    var playAgainConfirm = window.confirm("Would you like to play again?");
+    if (playAgainConfirm) {
+        startGame();
+    }
+    else {
+        window.alert("Thank you for playing Robot Gladiators! Come back soon!")
+    }
+};
+
+// fight(enemyNames[i]);
+startGame();
 
 
 
