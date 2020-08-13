@@ -51,6 +51,8 @@ if (promptFight === "" || promptFight === null) {
     window.alert("You need to provide a valid answer! Please try again.");
     return fightOrSkip();
   };
+
+  promptFight = promptFight.toLowerCase();
   
     // if user picks "skip" confirm and then stop the loop
     if (promptFight === "skip" || promptFight === "SKIP") {
@@ -63,6 +65,8 @@ if (promptFight === "" || promptFight === null) {
         // subtract money from playerMoney for skipping
         playerInfo.playerMoney = playerInfo.money - 10;
         shop();
+        // return true if user wants to leave
+      return true;
 
       }
     }
@@ -102,8 +106,8 @@ var fight = function (enemy) {
         // console.log(promptFight);
         // if player choses to skip
 
-        
-          fightOrSkip ();
+fightOrSkip ();
+          
         // if (promptFight === "skip" || promptFight === "SKIP") {
             
         // //     // confirm user wants to skip
@@ -169,6 +173,8 @@ var startGame = function () {
 
             pickedEnemyObj.health = randomNumber(40, 60);
 
+            fightOrSkip ();
+
             fight(pickedEnemyObj);
 
             //if we're not at the last enemy in the array
@@ -228,7 +234,7 @@ var shop = function () {
             //call shop again to force player to pick valid option
             shop();
 
-            break;
+            fightOrSkip;
     }
 };
 
