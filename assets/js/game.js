@@ -43,10 +43,20 @@ var randomNumber = function (min, max) {
 };
 
 
+
+
 var fight = function (enemy) {
+
+    //keep track of who goes first
+var isPlayerTurn = true; 
+    if (Math.random() > 0.5) {
+        isPlayerTurn = false;
+    }
+
 
     // repeat and execute as long as the enemy robot is alive 
     while (enemy.health > 0 && playerInfo.health > 0) {
+        if (isPlayerTurn) {
         var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
         console.log(promptFight);
         // if player choses to skip
@@ -59,11 +69,12 @@ var fight = function (enemy) {
                 // subtract money fromplayerInfo.money for skipping
                 playerInfo.money = Math.max(0, playerInfo.money - 10);
                 console.log("plplayerInfo.money", playerInfo.money)
-                return true;
-                // break;
-            } else {
-                return false;
-            }
+                
+                break;
+            // } else {
+            //     return false;
+            // }
+        }
         }
 
         // generate random damage value based on player's attack power
@@ -85,6 +96,10 @@ var fight = function (enemy) {
         } else {
             window.alert(enemy.name + " still has " + enemy.health + " health left.");
         }
+    } else {
+
+    
+    
 
         var damage = randomNumber(enemy.attack - 3, enemy.attack);
 
@@ -102,6 +117,9 @@ var fight = function (enemy) {
         } else {
             window.alert(playerInfo.name + " still has " + playerInfo.health + " health left.");
         }
+    }
+    //switch turn order for next round
+    isPlayerTurn = !isPlayerTurn
     }
 };
 
